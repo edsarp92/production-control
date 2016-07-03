@@ -1,14 +1,10 @@
-INSERT INTO users(username,email,password,enabled)
-VALUES ('priya','abc@abc.com','$2a$04$CO93CT2ObgMiSnMAWwoBkeFObJlMYi/wzzOnPlsTP44r7qVq0Jln2', true);
-INSERT INTO users(username,email,password,enabled)
-VALUES ('naveen','def@def.com','$2a$04$j3JpPUp6CTAe.kMWmdRNC.Wie58xDNPfcYz0DBJxWkucJ6ekJuiJm', true);
+INSERT INTO users(user_name,email,password,enabled)
+VALUES ('admin','dev@dev.com','$2a$04$j3JpPUp6CTAe.kMWmdRNC.Wie58xDNPfcYz0DBJxWkucJ6ekJuiJm', true);
 
-INSERT INTO user_roles (userid, role)
-VALUES (001, 'ROLE_USER','Administrator');
-INSERT INTO user_roles (userid, role)
-VALUES (002, 'ROLE_ADMIN','Administrator');
-INSERT INTO user_roles (userid, role)
-VALUES (002, 'ROLE_USER','Administrator');
+INSERT INTO roles (user_id, role,role_name)
+VALUES (1, 'ROLE_USER','Administrator');
+INSERT INTO roles (user_id, role,role_name)
+VALUES (1, 'ROLE_ADMIN','Administrator');
 
 INSERT INTO sys_form (form_id,zul_file,nama) VALUES (1,'/page/master/WndPendaftaranForm.zul','Pemeliharaan Form');
 INSERT INTO sys_form (form_id,zul_file,nama) VALUES (2,'/page/master/WndPemeliharaanWewenang.zul','Pemeliharaan Wewenang');
