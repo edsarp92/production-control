@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page title="${labels.application.title}"?>
+<?link rel="shortcut icon" type="image/x-icon" href="/asset/image/favicon.ico"?>
+<?link rel="stylesheet" type="text/css" href="/asset/css/login.css" ?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:html="native">
+    <vbox hflex="1" vflex="1" pack="center" align="center">
+        <div style="position:relative">
+            <window id="winlogin" border="normal"
+                     width="350px" height="350px"
+                    sclass="sysWin" xmlns:html="http://www.w3.org/1999/xhtml"
+                    xmlns="http://www.zkoss.org/2005/zul" class="img1">
+                <caption label="Login" style="color:white"/>
+                <vlayout hflex="1" vflex="1">
+                    <image hflex="1" vflex="1"
+                           src="/asset/image/vk-logo.png" style="width: 10px;"  />
+                    <html:form action="${loginUrl}" method="post">
+                        <grid>
+                            <columns>
+                                <column hflex="3" />
+                                <column hflex="5" />
+                            </columns>
+                            <rows>
+                                <row spans="2">
+                                    <label
+                                            value="Invalid username or password"
+                                            if="${execution.getParameter('error') != null}" />
+                                    <label
+                                            value="Successfully logged out"
+                                            if="${execution.getParameter('logout') != null}" />
+                                </row>
+                                <row>
+                                    <label value="Username" />
+                                    <textbox id="txtUsername" hflex="1"
+                                             name="username" />
+                                </row>
+                                <row>
+                                    <label value="Password" />
+                                    <textbox id="txtPassword"
+                                             type="password" hflex="1" name="password" />
+                                    <textbox visible="false"
+                                             value="${_csrf.token}" name="${_csrf.parameterName}" />
+                                </row>
+
+                                <row>
+                                    <label />
+                                    <cell hflex="1" align="right">
+                                        <button type="submit"
+                                                label="Login" id="bLogin" />
+                                    </cell>
+                                </row>
+                                <row>
+                                    <cell hflex="1" colspan="2" align="right">
+                                        <label value="${labels.application.version}" sclass="label-white"/>
+                                    </cell>
+                                </row>
+                            </rows>
+                        </grid>
+                    </html:form>
+                </vlayout>
+            </window>
+        </div>
+    </vbox>
+        
+</zk>

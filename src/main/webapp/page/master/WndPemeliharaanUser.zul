@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk xmlns="http://www.zkoss.org/2005/zul">
+<window id="wnd" border="none" width="100%" hflex="true" vflex="true" apply="${wndPemeliharaanUser}">
+	<borderlayout hflex="true" vflex="true">
+		<center autoscroll="true" hflex="true">
+			<hbox hflex="true" vflex="true">
+				<groupbox hflex="true">
+					<grid>
+						<columns>
+							<column width="150px"/>
+							<column />
+						</columns>
+						<rows>
+							
+							<row>
+								<label value="User ID" />
+								<textbox id="txtUserId" width="70px" maxlength="5"/>
+							</row>
+							<row>
+								<label value="Nama User" />
+								<textbox id="txtUserNmUser" width="240px" />
+							</row>
+							<row visible="false">
+								<label value="Password" />
+								<textbox id="txtPassword" width="240px" type="password"/>
+							</row>
+							<row>
+								<label value="Role ID" />
+								<combobox id="cmbRole" width="250px"/>
+							</row>
+							<row>
+								<label value="Jumlah Toleransi" />
+								<intbox id="txtJmlFail" width="50px" />
+							</row>
+							<row>
+								<label value="Batas Toleransi" />
+								<intbox id="txtLmtFail" width="50px" />
+							</row>
+							<row>
+								<label value="Status User" />
+								<radiogroup id="grpStatus">
+									<radio value="0" label="Tidak Aktif"/>
+									<radio value="1" label="Aktif" selected="true"/>
+								</radiogroup>
+							</row>
+						</rows>
+					</grid>
+				</groupbox>
+				<groupbox vflex="true">
+					<listbox id="list" hflex="true" vflex="true" mold="paging" pageSize="30">
+						<listhead>
+							<listheader label="User ID" width="70px" />
+							<listheader label="Nama" />
+						</listhead>
+					</listbox>
+				</groupbox>
+			</hbox>
+		</center>
+		<south>
+			<div align="right">
+				<hbox>
+					<button id="btnSave" width="75px" label="Save"/>
+					<button id="btnDelete" width="75px" label="Delete"/>
+					<button id="btnReset" width="75px" label="Reset"/>
+				</hbox>
+			</div>
+		</south>
+	</borderlayout>
+</window>
+</zk>

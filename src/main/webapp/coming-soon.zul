@@ -1,0 +1,8 @@
+<?page title="Hello world" contentType="text/html;charset=UTF-8"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?link rel="stylesheet" type="text/css" href="/asset/css/global.css"?>
+<zk>
+	<vbox vflex="1" hflex="1" align="center" pack="center" spacing="20px" >
+		<image src="/asset/image/coming-soon.jpeg" />
+	</vbox>
+</zk>
