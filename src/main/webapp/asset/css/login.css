@@ -150,9 +150,9 @@
     border-style: groove;
     border-color: #1484e6;
     border-top-left-radius:0px;
-    border-top-right-radius: 40px;
+    border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
-    border-bottom-left-radius: 40px;
+    border-bottom-left-radius: 0px;
 }
 
 #footer {
@@ -166,8 +166,8 @@
         font-family: ‘Lucida Console’, Monaco, monospace;
         text-decoration: none;
         background-color: rgba(68,68,68,0.6);
-	color: #FFF;
-	font-size: 0.9em;
+	    color: #FFF;
+	    font-size: 0.9em;
         /*box-shadow: 15px 10px 10px #1484e6;*/
         -webkit-box-shadow: 0 20px 15px -15px #069;
         -moz-box-shadow: 0 20px 15px -15px #069;
