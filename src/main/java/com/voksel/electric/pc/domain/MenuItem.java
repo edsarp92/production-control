@@ -1,6 +1,4 @@
 package com.voksel.electric.pc.domain;
-
-
 import com.voksel.electric.pc.component.MenuTreeItem;
 
 public class MenuItem implements MenuTreeItem {

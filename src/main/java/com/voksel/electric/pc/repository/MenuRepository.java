@@ -1,14 +1,13 @@
 package com.voksel.electric.pc.repository;
 
-import com.voksel.electric.pc.domain.Menu;
-import org.springframework.data.repository.Repository;
+import com.voksel.electric.pc.domain.entity.Menu;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 @Component
-public interface MenuRepository extends Repository<Menu, Long> {
-	Menu findByMenuId(Long menuId);
-	List<Menu> findAll();
-	List<Menu> findAllByMenuId(Long menuId);
-	List<Menu> findAllByOrderByMenuIdAsc();
+public interface MenuRepository extends JpaRepository<Menu, String> {
+
+	Menu findByMenuId(String menuId);
+
 }

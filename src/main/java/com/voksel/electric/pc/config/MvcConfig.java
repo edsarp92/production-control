@@ -66,7 +66,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         super.addViewControllers(registry);
-        registry.addRedirectViewController("/","/index.zul");
+        registry.addRedirectViewController("/","/index-.zul");
 
     }
 }

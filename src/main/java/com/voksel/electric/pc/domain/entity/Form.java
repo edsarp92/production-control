@@ -1,27 +1,29 @@
-package com.voksel.electric.pc.domain;
+package com.voksel.electric.pc.domain.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "sys_form")
 public class Form implements Serializable {
-    private static final long serialVersionUID = -7894303615765226496L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "form_id")
-    public Long formId;
+    private String formId;
     @Column(name = "zul_file")
-    public String url;
-    @Column(name = "nama")
-    public String formName;
+    private String url;
+    @Column(name = "name")
+    private String formName;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "form", fetch = FetchType.EAGER)
+    private Set<Menu> menus = new HashSet<>();
 
-    public Long getFormId() {
+    public String getFormId() {
         return formId;
     }
 
-    public void setFormId(Long formId) {
+    public void setFormId(String formId) {
         this.formId = formId;
     }
 
@@ -41,8 +43,11 @@ public class Form implements Serializable {
         this.formName = formName;
     }
 
-    public static long getSerialversionuid() {
-        return serialVersionUID;
+    public Set<Menu> getMenus() {
+        return menus;
     }
 
+    public void setMenus(Set<Menu> menus) {
+        this.menus = menus;
+    }
 }

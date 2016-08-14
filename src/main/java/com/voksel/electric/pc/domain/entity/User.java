@@ -1,18 +1,22 @@
-package com.voksel.electric.pc.domain;
+package com.voksel.electric.pc.domain.entity;
+
+import org.springframework.beans.support.PropertyComparator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "users")
-public class Users implements Serializable {
+@Table(name = "sys_user")
+public class User implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)    
     @Column(name="user_id")
-    private Long userId;
+    private Integer userId;
 
 	@Column(name = "user_name")
     private String userName;   
@@ -24,13 +28,16 @@ public class Users implements Serializable {
     private String email;
     
 	@Column(name ="enabled")
-	private int enabled;
+	private Integer enabled;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+	private List<UserRole> roles;
 	
-	public Users(){
+	public User(){
 		
 	}
 	
-	public Users(Users user) {
+	public User(User user) {
 	        this.userId = user.userId;
 	        this.userName = user.userName;
 	        this.email = user.email;       
@@ -46,11 +53,11 @@ public class Users implements Serializable {
 		this.enabled = enabled;
 	}	
 
-	public Long getUserid() {
+	public Integer getUserid() {
 		return userId;
 	}
 
-	public void setUserid(Long userid) {
+	public void setUserid(Integer userid) {
 		this.userId = userid;
 	}
 	
@@ -77,7 +84,13 @@ public class Users implements Serializable {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	
-	
-  
+
+	public List<UserRole> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<UserRole> roles) {
+		this.roles = roles;
+	}
+
 }

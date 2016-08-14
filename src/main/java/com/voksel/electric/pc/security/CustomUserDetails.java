@@ -1,7 +1,7 @@
 package com.voksel.electric.pc.security;
 
 
-import com.voksel.electric.pc.domain.Users;
+import com.voksel.electric.pc.domain.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,13 +10,13 @@ import org.springframework.util.StringUtils;
 import java.util.Collection;
 import java.util.List;
 
-public class CustomUserDetails extends Users implements UserDetails {
+public class CustomUserDetails extends User implements UserDetails {
 	
 	private static final long serialVersionUID = 1L;
 	private List<String> userRoles;
 	
 
-	public CustomUserDetails(Users user,List<String> userRoles){
+	public CustomUserDetails(User user,List<String> userRoles){
 		super(user);
 		this.userRoles=userRoles;
 	}

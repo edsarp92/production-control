@@ -3,7 +3,7 @@ package com.voksel.electric.pc.ui;
 
 import com.voksel.electric.pc.component.SidebarPage;
 import com.voksel.electric.pc.component.SidebarPageAbs;
-import com.voksel.electric.pc.service.MenuLoaderService;
+import com.voksel.electric.pc.component.MenuLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
@@ -30,7 +30,7 @@ import java.util.*;
 public class MainController extends SelectorComposer<Borderlayout> {
 
     @WireVariable
-    MenuLoaderService menuLoader;
+    MenuLoader menuLoader;
     @Autowired
     Environment environment;
     @Wire

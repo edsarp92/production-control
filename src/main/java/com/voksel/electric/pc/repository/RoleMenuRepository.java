@@ -1,13 +1,27 @@
 package com.voksel.electric.pc.repository;
 
-import com.voksel.electric.pc.domain.RoleMenu;
-import org.springframework.data.repository.Repository;
+import com.voksel.electric.pc.domain.entity.RoleMenu;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+
+/**
+ * Created by edsarp on 8/13/16.
+ */
 @Component
-public interface RoleMenuRepository extends Repository<RoleMenu, Long> {
-	RoleMenu findByRoleId(Long roleId);
-	List<RoleMenu> findAll();
-	List<RoleMenu> findAllByRoleId(Long roleId);
+public interface RoleMenuRepository extends JpaRepository<RoleMenu, String> {
+
+    @Query("SELECT a FROM RoleMenu a JOIN a.menu b ORDER BY b.menuId, b.parentId, b.sequence")
+    List<RoleMenu> findAllJoinMenu();
+
+    @Query("SELECT a FROM RoleMenu a JOIN a.menu b WHERE a.roleId=:roleId ORDER BY b.menuId, b.parentId, b.sequence")
+    List<RoleMenu> findAllJoinMenuRoleId(@Param("roleId") String roleId)  throws DataAccessException;
+
+    List<RoleMenu> findAllBymenuId(String menuId)  throws DataAccessException;
+
+
 }

@@ -1,69 +1,82 @@
-/*
-package com.security;
 
-import com.component.MenuTreeItem;
-import com.domain.MenuItem;
-import com.domain.Menus;
-import com.domain.UserRole;
-import com.repository.MenusRepository;
-import com.repository.UserRepository;
-import com.repository.UserRolesRepository;
+package com.voksel.electric.pc.security;
+
+import com.voksel.electric.pc.component.MenuTreeItem;
+import com.voksel.electric.pc.domain.MenuItem;
+import com.voksel.electric.pc.domain.entity.Role;
+import com.voksel.electric.pc.domain.entity.RoleMenu;
+import com.voksel.electric.pc.domain.entity.User;
+import com.voksel.electric.pc.domain.entity.UserRole;
+import com.voksel.electric.pc.repository.RoleMenuRepository;
+import com.voksel.electric.pc.repository.RoleRepository;
+import com.voksel.electric.pc.repository.UserRepository;
+import com.voksel.electric.pc.repository.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.Role;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService{
 	@Autowired
-	UserRepository userRepository;
-	@Autowired
-	UserRolesRepository roleRepository;
-	@Autowired
-	MenusRepository menuRepository;
-	
+    UserRepository userRepository;
+    @Autowired
+    RoleMenuRepository roleMenuRepository;
+    @Autowired
+    private  RoleRepository userRoleRepository;
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user=userRepository.findByUserName(username);
+        if(null == user){
+            throw new UsernameNotFoundException("No user present with username: "+username);
+        }else{
+            List<String> role=new ArrayList<>();
+            for(UserRole userRole :user.getRoles()){
+                role.add(userRole.getRoleId());
+            }
+            return new CustomUserDetails(user,role);
+        }
+    }
 
 	@Override
-	public Collection<MenuTreeItem> getMenuItems() {
-		List<MenuTreeItem> menuItems = new ArrayList<MenuTreeItem>();
-		List<Menus> menus = menuRepository.findItemsMenu();
-		for (Menus menu : menus) {
-			menuItems.add(new MenuItem(menu.getMenuId(), menu.getMenuName(), menu.getUrl(),
-					(menu.getUrl() == null || menu.getUrl().equals("")) ? false : true , menu.getMenuParent(), menu.getFormId()));
+	public Collection<MenuTreeItem> loadMenuItems() {
+		List<MenuTreeItem> menuItems = new ArrayList<>();
+		List<RoleMenu> roleMenus = roleMenuRepository.findAllJoinMenu();
+		for (RoleMenu roleMenu : roleMenus) {
+            String menuId=roleMenu.getMenuId();
+            String menuName=roleMenu.getMenu().getMenuName();
+            String url=(roleMenu.getMenu().getForm()!=null?roleMenu.getMenu().getForm().getUrl():"");
+            String parentId=roleMenu.getMenu().getParentId();
+            String formId=(roleMenu.getMenu().getForm() !=null?roleMenu.getMenu().getForm().getFormId():"");
+			menuItems.add(new MenuItem(menuId,menuName,url, (url == null || url.equals("")) ? false : true,
+                    parentId, formId));
 		}
 		return menuItems;
 	}
 
 	@Override
-	public Collection<MenuTreeItem> getMenuItemsByRole(String role) {
-		List<MenuTreeItem> menuItems = new ArrayList<MenuTreeItem>();
-		List<Menus> menus = menuRepository.findItemsMenuByRoleId(role);
-		for (Menus menu : menus) {
-			menuItems.add(new MenuItem(menu.getMenuId(), menu.getMenuName(), menu.getUrl(), 
-					(menu.getUrl() == null || menu.getUrl().equals("")) ? false : true , menu.getMenuParent(), menu.getFormId()));
-		}
-		return menuItems;
-	}
-	
+	public Collection<MenuTreeItem> loadMenuItemsByRole(String roleId) {
+        List<MenuTreeItem> menuItems = new ArrayList<>();
+        List<RoleMenu> roleMenus = roleMenuRepository.findAllJoinMenuRoleId(roleId);
+        for (RoleMenu roleMenu : roleMenus) {
+            String menuId=roleMenu.getMenuId();
+            String menuName=roleMenu.getMenu().getMenuName();
+            String url=(roleMenu.getMenu().getForm()!=null?roleMenu.getMenu().getForm().getUrl():"");
+            String parentId=roleMenu.getMenu().getParentId();
+            String formId=(roleMenu.getMenu().getForm() !=null?roleMenu.getMenu().getForm().getFormId():"");
+            menuItems.add(new MenuItem(menuId,menuName,url, (url == null || url.equals("")) ? false : true,
+                    parentId, formId));
+        }
+        return menuItems;
 
-	public UserDetails getUserDetails() {
-		return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
-	
-	@Override
-	public List<UserRole> getRoles(String roleId){
-		return roleRepository.findAllByRoleId(roleId);
-	}
+
 }
 
-*/

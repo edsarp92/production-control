@@ -1,7 +1,6 @@
 package com.voksel.electric.pc.component;
 
 import com.voksel.electric.pc.security.AuthenticationService;
-import com.voksel.electric.pc.service.MenuLoaderService;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ import java.util.*;
 /**
  * Created by Edsarp on 7/3/2016.
  */
-public abstract class AbstractMenuLoader implements InitializingBean, MenuLoaderService {
+public abstract class AbstractMenuLoader implements InitializingBean, MenuLoader {
     private Component content;
     protected Collection<MenuTreeItem> menuTreeItems;
 
@@ -37,7 +36,7 @@ public abstract class AbstractMenuLoader implements InitializingBean, MenuLoader
 
     @Deprecated
     protected  Collection<MenuTreeItem> initializeMenuItems(){
-        return authService.getMenuItems();
+        return authService.loadMenuItems();
     }
 
     public void setMenuTreeItems(Collection<MenuTreeItem> menuTreeItems) {

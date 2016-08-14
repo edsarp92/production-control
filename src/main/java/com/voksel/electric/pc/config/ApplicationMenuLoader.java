@@ -8,19 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Collection;
 
 public class ApplicationMenuLoader extends AbstractMenuLoader{
-	@Autowired
+
+    @Autowired
     AuthenticationService authService;
 	
     @Override
     protected Collection<MenuTreeItem> initializeMenuItems() {
 
-        return authService.getMenuItems();
+        return authService.loadMenuItems();
     }
 
     @Override
     public Collection<MenuTreeItem> loadByRole(String s)
     {
-        return authService.getMenuItemsByRole(s);
+        return authService.loadMenuItemsByRole(s);
     }
 
     @Override

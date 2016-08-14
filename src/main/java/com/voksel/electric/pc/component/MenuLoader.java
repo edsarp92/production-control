@@ -1,4 +1,4 @@
-package com.voksel.electric.pc.service;
+package com.voksel.electric.pc.component;
 
 import com.voksel.electric.pc.component.MenuTreeItem;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import java.util.Map;
  * Created by Edsarp on 7/3/2016.
  */
 @Service
-public interface MenuLoaderService {
+public interface MenuLoader {
 
     void loadMenu(Tree var1);
 

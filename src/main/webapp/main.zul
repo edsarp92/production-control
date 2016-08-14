@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page title="${environment.getProperty('application.title')}"?>
+<?link rel="stylesheet" type="text/css" href="${environment.getProperty('url.css.menu')}" ?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk  xmlns="http://www.zkoss.org/2005/zul">
+    <script type="text/javascript">
+            <![CDATA[
+        function startClock(initialTime){
+            var token = initialTime.split(':');
+            var hour = parseInt(token[0]);
+            var minute = parseInt(token[1]);
+            var second = parseInt(token[2]);
+
+            setInterval(function(){
+                second++;
+                if(second == 60){
+                    second = 0;
+                    minute++;
+                }
+                if(minute == 60){
+                    minute = 0;
+                    hour++;
+                }
+                if(hour == 24){
+                    hour = 0;
+                }
+
+                var hourString = hour;
+                var minuteString = minute;
+                var secondString = second;
+                if(hour < 10){
+                    hourString = '0' + hour;
+                }
+                if(minute < 10){
+                    minuteString = '0' + minute;
+                }
+                if(second < 10){
+                    secondString = '0' + second;
+                }
+                jq('$lblTime').text(hourString + ':' + minuteString + ':' + secondString);
+            }, 1000);
+        }
+        ]]>
+    </script>
+    <borderlayout width="100%" vflex="1" apply="${main1Controller}" >
+        <north sclass="header" height="50px">
+            <div >
+				<image id="logoBank" src="${environment.getProperty('url.image.menu')}" style="float:left;  margin-left:10px; margin-top:2px"/>
+				<label value="${environment.getProperty('application.name')}" sclass="title"/>
+            </div>
+        </north>
+        <west size="300px" maxsize="400" minsize="100" splittable="true" collapsible="true" border="none" style="border-right:1px solid #ddd; padding-right:1px; padding-top:1px; padding-bottom:1px;">
+            <vbox hflex="1" vflex="1" spacing="1px">
+                <tree vflex="1" hflex="1" id="treeMenu" >
+                    <treecols>
+                        <treecol label="Menu" align="center"/>
+                    </treecols>
+                    <template name="model" var="node" status="s">
+                        <treeitem open="true">
+                            <treerow>
+                                <treecell image="/asset/image/${each.data.program == true?'leaf':'folder'}.png"><label multiline="true" value=" ${each.data.menuName}" style="font-weight:bold;"/></treecell>
+                            </treerow>
+                        </treeitem>
+                    </template>
+                </tree>
+                <grid hflex="1" id="westInfoGrid">
+                    <columns>
+                        <column/>
+                        <column/>
+                        <column/>
+                    </columns>
+                    <rows>
+                        <row>
+                            <label value="Kode Menu"/>
+                            <textbox id="txtKodeMenu" hflex="1" maxlength="6"/>
+                            <cell/>
+                        </row>
+                        <row visible="false">
+                            <label value="Cabang"/>
+                            <cell colspan="2">
+                                <combobox id="cmbCabang" disabled="true" hflex="1">
+                                    <template name="model">
+                                        <comboitem label="${each.code} - ${each.name}"/>
+                                    </template>
+                                </combobox>
+                            </cell>
+                        </row>
+                        <row>
+                            <label value="Wewenang"/>
+                            <cell colspan="2">
+                                <combobox  id="cmbRole" hflex="1">
+                                    <template name="model">
+                                        <comboitem value="${each.authority}" label="${each.authority} - ${each.name}"/>
+                                    </template>
+                                </combobox>
+                            </cell>
+                        </row>
+                    </rows>
+                </grid>
+            </vbox>
+        </west>
+        <center border="0">
+            <vlayout hflex="1" vflex="1" style="padding:1px 1px 3px 1px;">
+                <div hflex="1" vflex="1" id="divContent" style="overflow:auto;">
+
+                </div>
+            </vlayout>
+        </center>
+        <south size="70px">
+            <vbox hflex="1" vflex="1" spacing="1px">
+                <div hflex="1" vflex="5" style="border:1px solid #ddd;padding:1px;">
+                    <html id="htmlRunText" hflex="1" vflex="1">
+                        <![CDATA[<marquee scrollamount="2" scrolldelay="1" class="running-text"> ${environment.getProperty('application.runningtext')}</marquee>]]>
+                    </html>
+                </div>
+                <hbox vflex="4" hflex="1" style="border:1px solid #ddd;padding:2px;">
+                    <div align="center" vflex="1" hflex="1" sclass="info-box">
+                        <label id="lblForm"/>
+                    </div>
+                    <div align="center" vflex="1" hflex="1" sclass="info-box">
+                        <label id="lblUser"/>
+                    </div>
+                    <div align="center" vflex="1" hflex="1" sclass="info-box">
+                        <label id="lblDate"/>
+                    </div>
+                    <div align="center" vflex="1" hflex="1" sclass="info-box">
+                        <label id="lblTime"/>
+                    </div>
+                    <button vflex="1" href="logout" id="btnLogOut" label="Log Out" image="/asset/image/logout-icon.png" sclass="button"/>
+                </hbox>
+            </vbox>
+        </south>
+    </borderlayout>
+</zk>

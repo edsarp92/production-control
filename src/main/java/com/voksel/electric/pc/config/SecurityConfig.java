@@ -1,6 +1,6 @@
 package com.voksel.electric.pc.config;
 
-import com.voksel.electric.pc.security.CustomUserDetailsService;
+import com.voksel.electric.pc.security.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,15 +15,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebMvcSecurity
-@ComponentScan(basePackageClasses = CustomUserDetailsService.class)
+@ComponentScan(basePackageClasses = AuthenticationService.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private AuthenticationService authenticationService;
 
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordencoder());
+        auth.userDetailsService(authenticationService).passwordEncoder(passwordencoder());
     }
 
     @Bean(name = "passwordEncoder")
@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login.zul")
                 .permitAll()
-                .defaultSuccessUrl("/index.zul", true).and()
+                .defaultSuccessUrl("/main.zul", true).and()
                 .logout().logoutSuccessUrl("/login.zul?logout")
                 .and()
                 .exceptionHandling().accessDeniedPage("/login.zul?error").and()

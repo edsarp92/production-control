@@ -1,11 +1,11 @@
 package com.voksel.electric.pc.repository;
 
-import com.voksel.electric.pc.domain.Users;
-import org.springframework.data.repository.Repository;
+import com.voksel.electric.pc.domain.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface UserRepository extends Repository<Users, Long> {
-    Users findByUserName(String username);
+public interface UserRepository extends JpaRepository<User, Integer> {
+    User findByUserName(String username);
     
 }
