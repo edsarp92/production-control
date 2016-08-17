@@ -3,6 +3,7 @@ package com.voksel.electric.pc.domain.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -49,5 +50,19 @@ public class Form implements Serializable {
 
     public void setMenus(Set<Menu> menus) {
         this.menus = menus;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(formId);
+    }
+
+    @Override
+    public String toString() {
+        return "Form{" +
+                "formName='" + formName + '\'' +
+                ", url='" + url + '\'' +
+                ", formId='" + formId + '\'' +
+                '}';
     }
 }

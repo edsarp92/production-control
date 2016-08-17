@@ -89,8 +89,6 @@
     animation: animations 5s;
 }
 
-
-
 .label-white{
 	color: white;
 }
@@ -213,8 +211,8 @@ div.z-listheader-cnt {
     font-size: large;
 }
 .images-logo{
-    width: 75px;
-    height: 75px;
+    width: 65px;
+    height: 60px;
     background: transparent;
     position: relative;
 }

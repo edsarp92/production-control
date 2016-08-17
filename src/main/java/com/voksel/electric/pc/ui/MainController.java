@@ -1,21 +1,23 @@
 package com.voksel.electric.pc.ui;
 
-
-import com.voksel.electric.pc.component.SidebarPage;
-import com.voksel.electric.pc.component.SidebarPageAbs;
+import com.voksel.electric.pc.component.AbstractMenuLoader;
 import com.voksel.electric.pc.component.MenuLoader;
+import com.voksel.electric.pc.component.MenuTreeItem;
+import com.voksel.electric.pc.component.MenuTreeNode;
+import com.voksel.electric.pc.domain.entity.UserRole;
+import com.voksel.electric.pc.security.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.event.*;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.HtmlBasedComponent;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.ext.Disable;
 import org.zkoss.zk.ui.select.SelectorComposer;
-import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.*;
 
@@ -23,83 +25,109 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * Created by Edsarp on 7/3/2016.
+ * Created by edsarp on 8/14/16.
  */
 @org.springframework.stereotype.Component
 @Scope("desktop")
 public class MainController extends SelectorComposer<Borderlayout> {
-
-    @WireVariable
-    MenuLoader menuLoader;
     @Autowired
-    Environment environment;
+    MenuLoader menuLoader;
     @Wire
-    Grid westInfoGrid;
+    Tree treeMenu;
+    @Wire
+    Div divContent;
     @Wire
     Label lblUser;
     @Wire
     Label lblDate;
     @Wire
-    Label lblTime;
-    @Wire
     Combobox cmbRole;
 
-    @Wire
-    Grid navList;
-
-    @WireVariable
-    SidebarPageAbs sidebarPageAbs;
-
-    private ListModelList<GrantedAuthority> roleModels;
+    public MainController() {
+    }
 
     public void doAfterCompose(Borderlayout comp) throws Exception {
         super.doAfterCompose(comp);
-        this.westInfoGrid.setVisible(Boolean.parseBoolean(this.environment.getProperty("application.show-left-info-panel", "true")));
         SimpleDateFormat sf = new SimpleDateFormat("hh:mm:ss");
         Clients.evalJavaScript("startClock(\'" + sf.format(new Date(System.currentTimeMillis())) + "\')");
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        this.lblUser.setValue(userDetails.getUsername());
-        this.lblDate.setValue((new SimpleDateFormat("dd/MM/yyyy")).format(new Date()));
-        this.roleModels = new ListModelList(new ArrayList(userDetails.getAuthorities()));
-        Iterator i$ = this.roleModels.iterator();
-        while (i$.hasNext()) {
-            GrantedAuthority branch = (GrantedAuthority) i$.next();
-            this.roleModels.setSelection(Collections.singleton(branch));
-            break;
+        lblUser.setValue(SecurityUtils.getCurrentUserLogin());
+        lblDate.setValue((new SimpleDateFormat("dd/MM/yyyy")).format(new Date()));
+        List<UserRole> userRole =(List<UserRole>)SecurityUtils.getUserInfo().getRoles();
+        for (UserRole r : userRole) {
+            Comboitem item = new Comboitem();
+            item.setLabel(r.getRoleId() + " - " + r.getRole().getRoleName());
+            item.setValue(r.getRoleId());
+            cmbRole.appendChild(item);
         }
-        this.cmbRole.setModel(this.roleModels);
-        Rows rows = navList.getRows();
-        for(SidebarPage page:sidebarPageAbs.getPages()){
-            Row row = constructSidebarRow(page.getName(),page.getLabel(),page.getIconUri(),page.getUri());
-            rows.appendChild(row);
+        cmbRole.setSelectedIndex(0);
+        if(menuLoader != null) {
+            ((AbstractMenuLoader)menuLoader).setContent(this.divContent);
+            menuLoader.doLoadByRole(treeMenu, cmbRole.getSelectedItem().getValue());
         }
-    }
 
-    private Row constructSidebarRow(final String name,String label, String imageSrc, final String locationUri) {
-        Row row = new Row();
-        Image image = new Image(imageSrc);
-        Label lab = new Label(label);
-        row.appendChild(image);
-        row.appendChild(lab);
-        row.setSclass("sidebar-fn");
-        org.zkoss.zk.ui.event.EventListener<Event> onActionListener = new SerializableEventListener<Event>(){
-            private static final long serialVersionUID = 1L;
+        treeMenu.addEventListener("onDoubleClick", new EventListener() {
             public void onEvent(Event event) throws Exception {
-                if(locationUri.startsWith("http")){
-                    Executions.getCurrent().sendRedirect(locationUri);
-                }else{
+                Tree tree = (Tree)event.getTarget();
+                if(tree.getItemCount() > 0) {
+                    if(tree.getSelectedCount() > 0) {
+                        Treeitem selectedItem = tree.getSelectedItem();
+                        MenuTreeNode node = (MenuTreeNode)selectedItem.getValue();
+                        MenuTreeItem item = (MenuTreeItem) node.getData();
+                        if(item.isProgram()) {
+                            MainController.this.menuLoader.openByCode(item.getId());
+                            Component component = MainController.this.divContent.getFirstChild();
+                            MainController.this.enterAsTab(component);
+                        }
 
-                    Include include = (Include) Selectors.iterable(navList.getPage(), "#mainInclude")
-                            .iterator().next();
-                    include.setSrc(locationUri);
-                    if(name!=null){
-                        getPage().getDesktop().setBookmark("p_"+name);
                     }
                 }
             }
-        };
-        row.addEventListener(Events.ON_DOUBLE_CLICK, onActionListener);
-        return row;
+        });
     }
 
+    private void enterAsTab(final Component component) {
+        component.addEventListener("onCreate", new EventListener() {
+            public void onEvent(Event event) throws Exception {
+                Iterable components = component.queryAll(".input");
+                final LinkedList componentList = new LinkedList();
+                Iterator i$ = components.iterator();
+
+                while(i$.hasNext()) {
+                    final Component componentx = (Component)i$.next();
+                    componentList.add(componentx);
+                    componentx.addEventListener("onOK", new EventListener() {
+                        public void onEvent(Event event) throws Exception {
+                            int index = componentList.indexOf(componentx);
+
+                            try {
+                                ++index;
+                                if(index < componentList.size()) {
+                                    Component ignored = (Component)componentList.get(index);
+                                    if(ignored instanceof Disable) {
+                                        while(((Disable)ignored).isDisabled()) {
+                                            ++index;
+                                            ignored = (Component)componentList.get(index);
+                                        }
+                                    }
+
+                                    if(ignored instanceof HtmlBasedComponent) {
+                                        ((HtmlBasedComponent)ignored).focus();
+                                    }
+                                }
+                            } catch (IndexOutOfBoundsException var4) {
+                                ;
+                            }
+
+                        }
+                    });
+                }
+
+            }
+        });
+    }
+
+    @Listen("onChange = #cmbRole")
+    public void changeMenuRole(Event event) {
+        this.menuLoader.doLoadByRole(treeMenu, (String)cmbRole.getSelectedItem().getValue());
+    }
 }

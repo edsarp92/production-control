@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?page title="${environment.getProperty('application.title')}"?>
-<?link rel="stylesheet" type="text/css" href="${environment.getProperty('url.css.menu')}" ?>
+<?page title="${labels.application.title}"?>
+<?link rel="stylesheet" type="text/css" href="/asset/css/global.css" ?>
+<?link rel="shortcut icon" type="image/x-icon" href="/asset/image/favicon.ico"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk  xmlns="http://www.zkoss.org/2005/zul">
     <script type="text/javascript">
@@ -42,11 +43,14 @@
         }
         ]]>
     </script>
-    <borderlayout width="100%" vflex="1" apply="${main1Controller}" >
-        <north sclass="header" height="50px">
-            <div >
-				<image id="logoBank" src="${environment.getProperty('url.image.menu')}" style="float:left;  margin-left:10px; margin-top:2px"/>
-				<label value="${environment.getProperty('application.name')}" sclass="title"/>
+    <borderlayout width="100%" vflex="1" apply="${mainController}" >
+        <north sclass="header"  height="50px" splittable="false" border="normal">
+            <div>
+                <div sclass="logo">
+                    <image hflex="1" vflex="1" src="/asset/image/control.png" sclass="images-logo"/>
+                    <label value="${labels.company.name}"/>
+                </div>
+                <label value="${labels.application.name}" sclass="title"/>
             </div>
         </north>
         <west size="300px" maxsize="400" minsize="100" splittable="true" collapsible="true" border="none" style="border-right:1px solid #ddd; padding-right:1px; padding-top:1px; padding-bottom:1px;">
@@ -75,16 +79,6 @@
                             <textbox id="txtKodeMenu" hflex="1" maxlength="6"/>
                             <cell/>
                         </row>
-                        <row visible="false">
-                            <label value="Cabang"/>
-                            <cell colspan="2">
-                                <combobox id="cmbCabang" disabled="true" hflex="1">
-                                    <template name="model">
-                                        <comboitem label="${each.code} - ${each.name}"/>
-                                    </template>
-                                </combobox>
-                            </cell>
-                        </row>
                         <row>
                             <label value="Wewenang"/>
                             <cell colspan="2">
@@ -106,17 +100,9 @@
                 </div>
             </vlayout>
         </center>
-        <south size="70px">
+        <south size="35px">
             <vbox hflex="1" vflex="1" spacing="1px">
-                <div hflex="1" vflex="5" style="border:1px solid #ddd;padding:1px;">
-                    <html id="htmlRunText" hflex="1" vflex="1">
-                        <![CDATA[<marquee scrollamount="2" scrolldelay="1" class="running-text"> ${environment.getProperty('application.runningtext')}</marquee>]]>
-                    </html>
-                </div>
-                <hbox vflex="4" hflex="1" style="border:1px solid #ddd;padding:2px;">
-                    <div align="center" vflex="1" hflex="1" sclass="info-box">
-                        <label id="lblForm"/>
-                    </div>
+                <hbox vflex="3" hflex="1" style="border:1px solid #ddd;padding:2px;">
                     <div align="center" vflex="1" hflex="1" sclass="info-box">
                         <label id="lblUser"/>
                     </div>
@@ -126,7 +112,7 @@
                     <div align="center" vflex="1" hflex="1" sclass="info-box">
                         <label id="lblTime"/>
                     </div>
-                    <button vflex="1" href="logout" id="btnLogOut" label="Log Out" image="/asset/image/logout-icon.png" sclass="button"/>
+                    <button vflex="1" href="logout" id="btnLogOut" label="Log Out" sclass="button"/>
                 </hbox>
             </vbox>
         </south>

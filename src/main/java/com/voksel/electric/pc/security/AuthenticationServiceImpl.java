@@ -1,6 +1,7 @@
 
 package com.voksel.electric.pc.security;
 
+import com.voksel.electric.pc.common.GlobalVariable;
 import com.voksel.electric.pc.component.MenuTreeItem;
 import com.voksel.electric.pc.domain.MenuItem;
 import com.voksel.electric.pc.domain.entity.Role;
@@ -29,18 +30,19 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     RoleMenuRepository roleMenuRepository;
     @Autowired
     private  RoleRepository userRoleRepository;
-
+    private GlobalVariable globel = GlobalVariable.getInstance();
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user=userRepository.findByUserName(username);
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        User user=userRepository.findOneByUserName(userName);
         if(null == user){
-            throw new UsernameNotFoundException("No user present with username: "+username);
+            throw new UsernameNotFoundException("No user present with username: "+userName);
         }else{
             List<String> role=new ArrayList<>();
             for(UserRole userRole :user.getRoles()){
                 role.add(userRole.getRoleId());
             }
+            globel.put(user.getUserName(),user);
             return new CustomUserDetails(user,role);
         }
     }
@@ -75,7 +77,6 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                     parentId, formId));
         }
         return menuItems;
-
 	}
 
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk xmlns="http://www.zkoss.org/2005/zul">
+	<window id="wnd" border="none" hflex="true" vflex="true" apply="${wndRegistrationForm}">
+		<borderlayout hflex="true" vflex="true">
+			<center autoscroll="true" hflex="true">
+				<vbox hflex="true" vflex="true">
+					<grid>
+						<columns>
+							<column width="150px"/>
+							<column />
+						</columns>
+						<rows>
+							<row>
+								<label value="Form ID" />
+								<textbox id="txtFormId" width="50px" maxlength="4"/>
+							</row>
+							<row>
+								<label value="Nama" />
+								<textbox id="txtFormNm" width="250px"/>
+							</row>
+							<row>
+								<label value="Zul File" />
+								<textbox id="txtZulFile" width="250px"/>
+							</row>
+						</rows>
+					</grid>
+					<hbox style="padding:5px;">
+						<button id="btnSave" width="75px" label="Save"/>
+						<button id="btnDelete" width="75px" label="Delete"/>
+						<button id="btnReset" width="75px" label="Reset"/>
+					</hbox>
+					<grid vflex="true" >
+						<columns>
+							<column></column>
+						</columns>
+						<rows >
+							<row >
+								<listbox id="list" hflex="true" vflex="true" >
+									<listhead>
+										<listheader label="Form ID" width="70px" />
+										<listheader label="Nama" />
+										<listheader label="Zul File" />
+									</listhead>
+								</listbox>
+							</row>
+							<row>
+								<paging pageSize="15" id="paging"/>
+							</row>
+						</rows>
+					</grid>
+				</vbox>
+			</center>
+
+		</borderlayout>
+	</window>
+</zk>

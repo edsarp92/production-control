@@ -31,7 +31,7 @@ public class CustomUserDetails extends User implements UserDetails {
 
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
+
 		return true;
 	}
 	@Override
@@ -45,7 +45,7 @@ public class CustomUserDetails extends User implements UserDetails {
 	}
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return (super.getEnabled()==1?true:false);
 	}
 
 
@@ -53,6 +53,8 @@ public class CustomUserDetails extends User implements UserDetails {
 	public String getUsername() {
 		return super.getUserName();
 	}
+
+
 
 
 }
