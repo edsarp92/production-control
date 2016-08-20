@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <zk xmlns="http://www.zkoss.org/2005/zul">
-	<window id="wnd" border="none" hflex="true" vflex="true" apply="${wndRegistrationForm}">
+	<window id="wnd" border="none" hflex="true" vflex="true" apply="${wndRegistrationRole}">
 		<borderlayout hflex="true" vflex="true">
 			<center autoscroll="true" hflex="true">
 				<vbox hflex="true" vflex="true">
@@ -12,16 +12,12 @@
 						</columns>
 						<rows>
 							<row>
-								<label value="Form ID" />
-								<textbox id="txtFormId" width="50px" maxlength="4"/>
+								<label value="Role ID" />
+								<textbox id="txtRoleId" width="50px" maxlength="2" />
 							</row>
 							<row>
 								<label value="Nama" />
-								<textbox id="txtFormNm" width="250px"/>
-							</row>
-							<row>
-								<label value="Zul File" />
-								<textbox id="txtZulFile" width="250px"/>
+								<textbox id="txtRoleNm" width="250px" maxlength="120"/>
 							</row>
 						</rows>
 					</grid>
@@ -33,9 +29,8 @@
 					<vbox hflex="true" vflex="true">
 						<listbox id="list" hflex="true" vflex="true" >
 							<listhead>
-								<listheader label="Form ID" width="70px" />
+								<listheader label="Role ID" width="70px" />
 								<listheader label="Nama" />
-								<listheader label="Zul File" />
 							</listhead>
 						</listbox>
 						<paging pageSize="20" id="paging"/>

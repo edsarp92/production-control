@@ -2,7 +2,7 @@ package com.voksel.electric.pc.ui.parameter;
 
 import com.voksel.electric.pc.common.ComponentUtil;
 import com.voksel.electric.pc.common.MessageBox;
-import com.voksel.electric.pc.domain.entity.Form;
+import com.voksel.electric.pc.domain.entity.Role;
 import com.voksel.electric.pc.service.ParameterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,16 +26,14 @@ import java.util.List;
 
 @org.springframework.stereotype.Component
 @Scope("desktop")
-public class WndRegistrationForm extends SelectorComposer<Component> {
-	final Logger log = LoggerFactory.getLogger(WndRegistrationForm.class);
+public class WndRegistrationRole extends SelectorComposer<Component> {
+	final Logger log = LoggerFactory.getLogger(WndRegistrationRole.class);
 	@Wire
 	Window wnd;
 	@Wire
-	Textbox txtFormId;
+	Textbox txtRoleId;
 	@Wire
-	Textbox txtFormNm;
-	@Wire
-	Textbox txtZulFile;
+	Textbox txtRoleNm;
 	@Wire
 	Listbox list;
 	@Wire
@@ -57,19 +55,19 @@ public class WndRegistrationForm extends SelectorComposer<Component> {
 		initWndRegistrationForm();
 	}
 
-	@Listen("onOk = #txtFormId")
+	@Listen("onOk = #txtRoleId")
 	public void onSearch(Event event){
 		try{
-			Form form= parameterService.findOneForm((String)ComponentUtil.getValue(txtFormId));
-			if(form !=null) {
-				List<Form> forms=new ArrayList<>();
-				forms.add(form);
+			Role role= parameterService.findOneRole((String)ComponentUtil.getValue(txtRoleId));
+			if(role !=null) {
+				List<Role> roles=new ArrayList<>();
+				roles.add(role);
 				paging.setTotalSize(1);
-				doFillTable(forms);
+				doFillTable(roles);
 			}
 		}catch (Exception e)
 		{
-			log.error("Textbox Form Id on ok ", e);
+			log.error("Textbox Role Id on ok ", e);
 		}
 	}
 
@@ -78,10 +76,10 @@ public class WndRegistrationForm extends SelectorComposer<Component> {
 		try{
 			item = list.getSelectedItem();
 			if (item != null) {
-				Form form = (Form) item.getAttribute("DATA");
-				doFillDetailForm(form);
+				Role role = (Role) item.getAttribute("DATA");
+				doFillDetailForm(role);
 				onLoad = true;
-				txtFormId.setDisabled(true);
+				txtRoleId.setDisabled(true);
 				btnDelete.setDisabled(false);
 			}
 		}catch (Exception e){
@@ -107,8 +105,8 @@ public class WndRegistrationForm extends SelectorComposer<Component> {
 	@Listen("onClick =#btnDelete")
 	public void onDelete(Event event){
 		try{
-			if(ComponentUtil.getValue(txtFormId)!=null || !ComponentUtil.getValue(txtFormId).equals("")) {
-				parameterService.deleteForm((String) ComponentUtil.getValue(txtFormId));
+			if(ComponentUtil.getValue(txtRoleId)!=null || !ComponentUtil.getValue(txtRoleId).equals("")) {
+				parameterService.deleteRole((String) ComponentUtil.getValue(txtRoleId));
 				MessageBox.showInformation("Data berhasil dihapus");
 				doReset();
 			}else{
@@ -148,16 +146,16 @@ public class WndRegistrationForm extends SelectorComposer<Component> {
 
 	private void doInsert() throws  Exception{
 		if (!isExists()) {
-			parameterService.saveForm(populationData());
+			parameterService.saveRole(populationData());
 			MessageBox.showInformation("Data berhasil disimpan");
 		}else{
-			MessageBox.showError("Data telah ada di database");
+			MessageBox.showError("Data sudah tersimpan sebelumnya!");
 		}
 		doReset();
 	}
 
 	private void doUpdate() throws  Exception{
-		parameterService.saveForm(populationData());
+		parameterService.saveRole(populationData());
 		MessageBox.showInformation("Data berhasil diupdate");
 		doReset();
 	}
@@ -166,47 +164,44 @@ public class WndRegistrationForm extends SelectorComposer<Component> {
 		ComponentUtil.clear(wnd);
 		doLoadData();
 		onLoad = false;
-		txtFormId.setDisabled(false);
+		txtRoleId.setDisabled(false);
 		btnDelete.setDisabled(true);
-		txtFormId.setFocus(true);
+		txtRoleId.setFocus(true);
 	}
 
 	private void doLoadData() throws Exception{
-		Page<Form> page= parameterService.findAllForm(createPageRequest());
+		Page<Role> page= parameterService.findAllRole(createPageRequest());
 		paging.setTotalSize((int)page.getTotalElements());
 		doFillTable(page.getContent());
 	}
 
-	private void doFillTable(List<Form> page) throws  Exception{
+	private void doFillTable(List<Role> page) throws  Exception{
 		list.getItems().clear();
 		if (page != null){
-			for(Form form : page){
+			for(Role role : page){
 				Listitem item = new Listitem();
-				item.setAttribute("DATA", form);
-				item.appendChild(new Listcell(form.getFormId()));
-				item.appendChild(new Listcell(form.getFormName()));
-				item.appendChild(new Listcell(form.getUrl()));
+				item.setAttribute("DATA", role);
+				item.appendChild(new Listcell(role.getRoleId()));
+				item.appendChild(new Listcell(role.getRoleName()));
 				list.appendChild(item);
 			}
 		}
 	}
 
 	private boolean isExists() throws Exception{
-		return parameterService.existsForm((String)ComponentUtil.getValue(txtFormId));
+		return parameterService.existsForm((String)ComponentUtil.getValue(txtRoleId));
 	}
 
-	private void doFillDetailForm(Form form){
-		ComponentUtil.setValue(txtFormId, form.getFormId());
-		ComponentUtil.setValue(txtFormNm, form.getFormName());
-		ComponentUtil.setValue(txtZulFile, form.getUrl());
+	private void doFillDetailForm(Role role){
+		ComponentUtil.setValue(txtRoleId,role.getRoleId());
+		ComponentUtil.setValue(txtRoleNm, role.getRoleName());
 	}
 
-	private Form populationData(){
-		Form form =new Form();
-		form.setFormId((String) ComponentUtil.getValue(txtFormId));
-		form.setFormName((String) ComponentUtil.getValue(txtFormNm));
-		form.setUrl((String) ComponentUtil.getValue(txtZulFile));
-		return form;
+	private Role populationData(){
+		Role role=new Role();
+		role.setRoleId((String) ComponentUtil.getValue(txtRoleId));
+		role.setRoleName((String) ComponentUtil.getValue(txtRoleNm));
+		return role;
 	}
 
 	private Pageable createPageRequest(){
@@ -215,14 +210,14 @@ public class WndRegistrationForm extends SelectorComposer<Component> {
 		int pageCount = paging.getPageCount();
 		int pageSize = paging.getPageSize();
 		log.debug("pageNo: {}, totalSize: {}, pageCount: {}, pageSize: {}", pageNo, totalSize, pageCount, pageSize);
-		return new PageRequest(pageNo, pageSize, Sort.Direction.ASC, "formId");
+		return new PageRequest(pageNo, pageSize, Sort.Direction.ASC, "roleId");
 	}
 
 	private boolean doValidation(){
-		if (ComponentUtil.getValue(txtFormId) == null || ComponentUtil.getValue(txtFormId).equals("")) {
-			throw new WrongValueException(txtFormId, "Form id harus diisi.");
-		}else if (txtFormId.getText().length() < 4  || txtFormId.getText().length() > 4) {
-			throw new WrongValueException(txtFormId, "Form id harus 4 digit.");
+		if (ComponentUtil.getValue(txtRoleId) == null || ComponentUtil.getValue(txtRoleId).equals("")) {
+			throw new WrongValueException(txtRoleId, "Role ID harus diisi");
+		}else if (txtRoleId.getText().length() < 2  || txtRoleId.getText().length() > 2) {
+			throw new WrongValueException(txtRoleId, "Role ID harus 4 digit");
 		}
 		return true;
 	}
