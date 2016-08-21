@@ -1,6 +1,7 @@
 package com.voksel.electric.pc.service;
 
 import com.voksel.electric.pc.domain.entity.Form;
+import com.voksel.electric.pc.domain.entity.Menu;
 import com.voksel.electric.pc.domain.entity.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,5 +30,17 @@ public interface ParameterService {
     Page<Role> findAllRole(Pageable pageable) throws Exception;
 
     Role findOneRole(String roleId) throws Exception;
+
+    List<Menu> findAllMenu() throws Exception;
+
+    Menu findOneMenu(String menuId) throws Exception;
+
+    List<Form> searchForm(String query) throws Exception;
+
+    void deleteMenu(String menuId) throws Exception;
+
+    Menu saveMenu(Menu menu) throws Exception;
+
+    boolean existsMenu(String menuId) throws Exception;
 
 }

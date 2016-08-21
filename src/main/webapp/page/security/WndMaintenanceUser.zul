@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk xmlns="http://www.zkoss.org/2005/zul">
+	<window id="wnd" border="none" hflex="true" vflex="true" apply="${wndMaintenanteUser}">
+		<borderlayout hflex="true" vflex="true">
+			<center autoscroll="true" hflex="true">
+				<vbox hflex="true" vflex="true">
+					<groupbox hflex="1" >
+						<hbox>
+						<grid style="border:none;" width="500px">
+							<columns>
+								<column width="150px"/>
+								<column />
+							</columns>
+							<rows>
+								<row visible="false">
+									<label value="User ID" />
+									<intbox id="txtUserId" width="100px" />
+								</row>
+								<row>
+									<label value="User Login" />
+									<textbox id="txtUserName" width="250px" maxlength="50"/>
+								</row>
+								<row>
+									<label value="Email" />
+									<textbox id="txtEmail" constraint="/.+@.+\.[a-z]+/: Please enter an e-mail address" width="250px" maxlength="255"/>
+								</row>
+
+								<row>
+									<label value="Status" />
+									<radiogroup id="rgStatus">
+										<radio value="0" label="Tidak Aktif"/>
+										<radio value="1" label="Aktif" selected="true"/>
+									</radiogroup>
+								</row>
+
+							</rows>
+						</grid>
+						<hlayout height="130px">
+							<listbox id="lsRole" hflex="1" vflex="true">
+
+								<listhead>
+									<listheader width="30px">
+										<checkbox id="chkAll"/>
+									</listheader>
+									<listheader label="Roles" />
+								</listhead>
+							</listbox>
+						</hlayout>
+
+						</hbox>
+					</groupbox>
+
+					<hbox style="padding:5px;">
+						<button id="btnSave" width="75px" label="Save"/>
+						<button id="btnDelete" width="75px" label="Delete"/>
+						<button id="btnReset" width="75px" label="Reset"/>
+					</hbox>
+					<vbox hflex="true" vflex="true">
+						<listbox id="list" hflex="true" vflex="true" >
+							<listhead>
+								<listheader label="User Login" width="200px"/>
+								<listheader label="Email"/>
+								<listheader align="center" label="Status" width="150px"/>
+							</listhead>
+						</listbox>
+						<paging pageSize="20" id="paging"/>
+					</vbox>
+				</vbox>
+			</center>
+		</borderlayout>
+	</window>
+</zk>

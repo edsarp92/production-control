@@ -57,12 +57,14 @@
             <vbox hflex="1" vflex="1" spacing="1px">
                 <tree vflex="1" hflex="1" id="treeMenu" >
                     <treecols>
-                        <treecol label="Menu" align="center"/>
+                        <treecol label="Menu" align="left"/>
                     </treecols>
                     <template name="model" var="node" status="s">
                         <treeitem open="true">
                             <treerow>
-                                <treecell image="/asset/image/${each.data.program == true?'leaf':'folder'}.png"><label multiline="true" value=" ${each.data.menuName}" style="font-weight:bold;"/></treecell>
+                                <treecell image="/asset/image/${each.data.program == true?'leaf':'folder'}.png">
+                                    <label multiline="true" style="padding-top:5px"  value="${each.data.menuName}"/>
+                                </treecell>
                             </treerow>
                         </treeitem>
                     </template>

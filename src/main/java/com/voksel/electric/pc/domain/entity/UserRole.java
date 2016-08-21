@@ -1,5 +1,7 @@
 package com.voksel.electric.pc.domain.entity;
 
+import com.voksel.electric.pc.domain.id.UserRoleId;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -8,11 +10,11 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name="r_user_role")
-@IdClass(UserRole.class)
+@IdClass(UserRoleId.class)
 public class UserRole implements Serializable {
 
     @Id
-    private int userId;
+    private Integer userId;
 
     @ManyToOne(optional = true)
     @JoinColumn(name = "userId",referencedColumnName = "user_id",insertable = false,updatable = false)
@@ -25,11 +27,11 @@ public class UserRole implements Serializable {
     @JoinColumn(name = "roleId",referencedColumnName = "role_id",insertable = false,updatable = false)
     private Role role;
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

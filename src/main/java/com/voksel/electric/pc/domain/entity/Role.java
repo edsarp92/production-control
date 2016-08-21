@@ -14,6 +14,8 @@ public class Role implements Serializable {
     @Column(name = "name")
     private String roleName;
 
+
+
     public String getRoleId() {
         return roleId;
     }

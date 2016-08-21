@@ -1,19 +1,19 @@
 package com.voksel.electric.pc.domain.entity;
 
-import org.springframework.beans.support.PropertyComparator;
 
+import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+
+@Document(indexName = "sys_user")
 @Entity
 @Table(name = "sys_user")
 public class User implements Serializable {
 
-	@Id
+	@javax.persistence.Id
+	@org.springframework.data.annotation.Id
     @GeneratedValue(strategy = GenerationType.AUTO)    
     @Column(name="user_id")
     private Integer userId;
@@ -21,7 +21,7 @@ public class User implements Serializable {
 	@Column(name = "user_name")
     private String userName;   
 
-	@Column(name = "password")
+	@Column(name = "password", updatable = false)
     private String password;   
 
 	@Column(name = "email")
@@ -45,19 +45,19 @@ public class User implements Serializable {
 	        this.enabled=user.enabled;        
 	}
 	
-	public int getEnabled() {
+	public Integer getEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(int enabled) {
+	public void setEnabled(Integer enabled) {
 		this.enabled = enabled;
 	}	
 
-	public Integer getUserid() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserid(Integer userid) {
+	public void setUserId(Integer userid) {
 		this.userId = userid;
 	}
 	

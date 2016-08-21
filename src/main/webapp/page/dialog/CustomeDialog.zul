@@ -1,0 +1,17 @@
+<?page title="Log In"?>
+<?xel-method prefix="e" name="getStackTrace" class="org.apache.commons.lang.exception.ExceptionUtils" signature="java.lang.String getFullStackTrace(java.lang.Throwable)"?>
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <window title="${title}" sclass="z-messagebox-window"
+            border="normal" width="260pt" closable="true" mode="modal" apply="${customMessageDialog}">
+        <hbox>
+            <div sclass="z-messagebox">
+                <label id="message" value="${message}" multiline="true"/>
+            </div>
+        </hbox>
+        <separator spacing="15px"/>
+        <hbox id="buttons" style="margin-left:auto; margin-right:auto">
+            <button label="Close" id="btnClose" onClick="spaceOwner.detach()"/>
+        </hbox>
+    </window>
+</zk>
+

@@ -36,7 +36,6 @@ public class RoleMenu implements Serializable{
 		return role;
 	}
 
-
 	public String getMenuId() {
 		return menuId;
 	}

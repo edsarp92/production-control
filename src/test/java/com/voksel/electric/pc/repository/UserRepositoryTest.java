@@ -24,7 +24,7 @@ public class UserRepositoryTest {
     @Test
     public void findByFormId() {
         User user = this.userRepository.findOneByUserName("admin");
-        assertEquals(user.getUserid().toString(),"0");
+        assertEquals(user.getUserId().toString(),"0");
 
     }
 }

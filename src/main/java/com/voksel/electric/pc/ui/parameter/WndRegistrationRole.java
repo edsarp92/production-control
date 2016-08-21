@@ -110,7 +110,7 @@ public class WndRegistrationRole extends SelectorComposer<Component> {
 				MessageBox.showInformation("Data berhasil dihapus");
 				doReset();
 			}else{
-				MessageBox.showInformation("Data tidak ada yang terpilih!");
+				MessageBox.showInformation("Data tidak ada yang dipilih!");
 			}
 		}catch (Exception e){
 			log.error("Button delete on clik ", e);

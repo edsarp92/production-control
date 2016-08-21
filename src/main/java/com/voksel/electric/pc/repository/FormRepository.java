@@ -6,9 +6,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 @Component
-public interface FormRepository extends JpaRepository<Form, String> {
+public interface FormRepository extends JpaRepository<Form, String>{
 	Form findByFormId(String formId);
 	List<Form> findAllByOrderByFormIdDesc();
-
 
 }

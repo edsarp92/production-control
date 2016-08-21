@@ -10,4 +10,6 @@ public interface MenuRepository extends JpaRepository<Menu, String> {
 
 	Menu findByMenuId(String menuId);
 
+	List<Menu> findAllByOrderByMenuIdAsc();
+
 }
