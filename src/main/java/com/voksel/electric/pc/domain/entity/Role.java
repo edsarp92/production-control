@@ -7,14 +7,14 @@ import java.io.Serializable;
 @Table(name = "sys_role")
 public class Role implements Serializable {
 
+    private static final long serialVersionUID = 265176618778827721L;
+
     @Id
     @Column(name = "role_id")
     private String roleId;
 
     @Column(name = "name")
     private String roleName;
-
-
 
     public String getRoleId() {
         return roleId;

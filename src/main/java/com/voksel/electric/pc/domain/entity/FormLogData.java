@@ -14,6 +14,8 @@ import java.util.Date;
 @IdClass(FormLogDataId.class)
 public class FormLogData implements Serializable {
 
+    private static final long serialVersionUID = -303584781925763717L;
+
     @Id
     @Column(name = "form_id")
     private String formId;

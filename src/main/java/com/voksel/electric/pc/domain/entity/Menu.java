@@ -1,6 +1,7 @@
 package com.voksel.electric.pc.domain.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 
@@ -13,18 +14,26 @@ public class Menu implements Serializable {
 	@Id
 	@Column(name="menu_id")
 	private String menuId;
+
 	@Column(name="name")
 	private String menuName;
+
 	@OneToOne()
 	@JoinColumn(name = "form_id")
 	private Form form;
+
 	@Column(name="parent_id")
-	@JoinColumn(name="parent_id",referencedColumnName="menu_id")
-	private Menu parent;
+	private String parentId;
+
 	@Column(name="sequence")
 	private Integer sequence;
+
 	@Column(name="param")
 	private String parameter;
+
+	@OneToOne()
+	@JoinColumn(name = "parentId",referencedColumnName = "menu_id", insertable=false, updatable=false)
+	private Menu parent;
 
 	public String getMenuId() {
 		return menuId;
@@ -50,12 +59,12 @@ public class Menu implements Serializable {
 		this.form = form;
 	}
 
-	public Menu getParent() {
-		return parent;
+	public String getParentId() {
+		return parentId;
 	}
 
-	public void setParent(Menu parent) {
-		this.parent = parent;
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
 	}
 
 	public Integer getSequence() {
@@ -72,5 +81,9 @@ public class Menu implements Serializable {
 
 	public void setParameter(String parameter) {
 		this.parameter = parameter;
+	}
+
+	public Menu getParent() {
+		return parent;
 	}
 }

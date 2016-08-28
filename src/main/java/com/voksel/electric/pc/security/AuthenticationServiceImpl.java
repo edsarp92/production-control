@@ -55,7 +55,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
             String menuId=roleMenu.getMenuId();
             String menuName=roleMenu.getMenu().getMenuName();
             String url=(roleMenu.getMenu().getForm()!=null?roleMenu.getMenu().getForm().getUrl():"");
-            String parentId=roleMenu.getMenu().getParent().getMenuId();
+            String parentId=roleMenu.getMenu().getParentId();
             String formId=(roleMenu.getMenu().getForm() !=null?roleMenu.getMenu().getForm().getFormId():"");
 			menuItems.add(new MenuItem(menuId,menuName,url, (url == null || url.equals("")) ? false : true,
                     parentId, formId));
@@ -71,7 +71,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
             String menuId=roleMenu.getMenuId();
             String menuName=roleMenu.getMenu().getMenuName();
             String url=(roleMenu.getMenu().getForm()!=null?roleMenu.getMenu().getForm().getUrl():"");
-            String parentId=roleMenu.getMenu().getParent().getMenuId();
+            String parentId=roleMenu.getMenu().getParentId();
             String formId=(roleMenu.getMenu().getForm() !=null?roleMenu.getMenu().getForm().getFormId():"");
             menuItems.add(new MenuItem(menuId,menuName,url, (url == null || url.equals("")) ? false : true,
                     parentId, formId));

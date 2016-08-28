@@ -10,6 +10,8 @@ import java.io.Serializable;
 @IdClass(RoleMenuId.class)
 public class RoleMenu implements Serializable{
 
+	private static final long serialVersionUID = 1754927023759959427L;
+
 	@Id
 	private String roleId;
 
@@ -20,7 +22,7 @@ public class RoleMenu implements Serializable{
 	@Id
 	private String menuId;
 
-	@OneToOne(optional=true)
+	@OneToOne()
 	@JoinColumn(name="menuId",referencedColumnName="menu_id", insertable=false, updatable=false)
 	private Menu menu;
 

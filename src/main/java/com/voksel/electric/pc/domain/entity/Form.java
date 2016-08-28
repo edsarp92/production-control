@@ -1,30 +1,29 @@
 package com.voksel.electric.pc.domain.entity;
 
 
-import org.springframework.data.annotation.*;
-import org.springframework.data.elasticsearch.annotations.Document;
-
 import javax.persistence.*;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Document(indexName = "sys_form",type = "Form")
 @Table(name = "sys_form")
 public class Form implements Serializable {
 
     private static final long serialVersionUID = -3074899015464984786L;
 
-    @javax.persistence.Id
-    @org.springframework.data.annotation.Id
+    @Id
     @Column(name = "form_id")
     private String formId;
+
     @Column(name = "zul_file")
     private String url;
+
     @Column(name = "name")
     private String formName;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "form", fetch = FetchType.EAGER)
     private Set<Menu> menus = new HashSet<>();
 

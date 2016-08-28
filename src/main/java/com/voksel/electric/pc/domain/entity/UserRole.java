@@ -13,6 +13,8 @@ import java.io.Serializable;
 @IdClass(UserRoleId.class)
 public class UserRole implements Serializable {
 
+    private static final long serialVersionUID = 7273062922398876622L;
+
     @Id
     private Integer userId;
 

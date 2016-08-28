@@ -246,8 +246,8 @@ public class WndMaintenanceMenu extends SelectorComposer<Component>    {
             item.setAttribute("MENU_ID", menu.getMenuId());
             item.setAttribute("DATA", menu);
             rowTree.appendChild(new Treecell(menu.getMenuId() + " - " + menu.getMenuName() + " - " + menu.getSequence()));
-            if (menu.getParent() != null) {
-                Treeitem itemParent = (Treeitem) mapTree.get(menu.getParent().getMenuId());
+            if (menu.getParentId() != null) {
+                Treeitem itemParent = (Treeitem) mapTree.get(menu.getParentId());
                 Treechildren parent = (Treechildren) itemParent.getAttribute("PARENT");
                 if (parent == null) {
                     parent = new Treechildren();
@@ -274,8 +274,8 @@ public class WndMaintenanceMenu extends SelectorComposer<Component>    {
         ComponentUtil.setValue(txtMenuNm,menu.getMenuName());
         ComponentUtil.setValue(txtFormId,menu.getForm().getFormId());
         ComponentUtil.setValue(txtFormNm,menu.getForm().getFormName());
-        ComponentUtil.setValue(txtParentId,menu.getParent().getMenuId());
-        ComponentUtil.setValue(txtParentNm,menu.getParent().getMenuId());
+        ComponentUtil.setValue(txtParentId,menu.getParentId());
+        ComponentUtil.setValue(txtParentNm,menu.getParentId());
         ComponentUtil.setValue(txtSeq,menu.getSequence());
         ComponentUtil.setValue(txtParameters,menu.getParameter());
     }
@@ -288,8 +288,8 @@ public class WndMaintenanceMenu extends SelectorComposer<Component>    {
         menu.setMenuName((String)ComponentUtil.getValue(txtMenuNm));
         form.setFormId((String)ComponentUtil.getValue(txtFormId));
         menu.setForm(form);
-        parent.setMenuId((String)ComponentUtil.getValue(txtParentId));
-        menu.setParent(parent);
+
+        menu.setParentId((String)ComponentUtil.getValue(txtParentId));
         menu.setSequence((Integer)ComponentUtil.getValue(txtSeq));
         menu.setParameter((String)ComponentUtil.getValue(txtParameters));
         return menu;

@@ -1,19 +1,17 @@
 package com.voksel.electric.pc.domain.entity;
 
-
-import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 
-@Document(indexName = "sys_user")
 @Entity
 @Table(name = "sys_user")
 public class User implements Serializable {
 
-	@javax.persistence.Id
-	@org.springframework.data.annotation.Id
+	private static final long serialVersionUID = -7025734711457327291L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)    
     @Column(name="user_id")
     private Integer userId;

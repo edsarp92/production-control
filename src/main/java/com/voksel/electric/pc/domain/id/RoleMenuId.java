@@ -1,8 +1,5 @@
 package com.voksel.electric.pc.domain.id;
 
-import com.voksel.electric.pc.domain.entity.Menu;
-import com.voksel.electric.pc.domain.entity.Role;
-
 import java.io.Serializable;
 
 /**
