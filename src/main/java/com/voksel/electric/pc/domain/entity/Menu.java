@@ -1,8 +1,8 @@
 package com.voksel.electric.pc.domain.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Objects;
 
 
 @Entity
@@ -30,10 +30,6 @@ public class Menu implements Serializable {
 
 	@Column(name="param")
 	private String parameter;
-
-	@OneToOne()
-	@JoinColumn(name = "parentId",referencedColumnName = "menu_id", insertable=false, updatable=false)
-	private Menu parent;
 
 	public String getMenuId() {
 		return menuId;
@@ -83,7 +79,24 @@ public class Menu implements Serializable {
 		this.parameter = parameter;
 	}
 
-	public Menu getParent() {
-		return parent;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		Menu menu = (Menu) o;
+		if(menu.menuId == null || menu == null) {
+			return false;
+		}
+		return Objects.equals(menu, menu.menuId);
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(menuId);
+	}
+
 }

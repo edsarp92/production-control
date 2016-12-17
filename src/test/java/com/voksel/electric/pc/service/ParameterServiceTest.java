@@ -1,16 +1,13 @@
 package com.voksel.electric.pc.service;
 
 import com.voksel.electric.pc.configuration.ServiceConfiguration;
-import com.voksel.electric.pc.domain.entity.Form;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.data.elasticsearch.core.query.Criteria;
-import org.springframework.data.elasticsearch.core.query.CriteriaQuery;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.List;
 
 /**
  * Created by edsarp on 8/21/16.
@@ -19,18 +16,13 @@ import java.util.List;
 @SpringApplicationConfiguration(classes = {ServiceConfiguration.class})
 public class ParameterServiceTest {
 
-    @Autowired
-    ParameterService parameterService;
+    //@Inject
+   // ParameterService parameterService;
 
     @Test
-    public void searchForm() throws Exception{
-        String expectedDate = "2014-10-29";
-        String expectedWord = "java";
-        CriteriaQuery query = new CriteriaQuery(
-                new Criteria("_all").contains(expectedWord).and(
-                        new Criteria("date").greaterThanEqual(expectedDate)));
+    public void searchJob() throws Exception{
+        String search = "programmer";
+        Pageable pageable= new PageRequest(0, 20);
 
-
-        List<Form>lis=parameterService.searchForm("user");
     }
 }

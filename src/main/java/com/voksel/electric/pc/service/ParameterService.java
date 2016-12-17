@@ -35,12 +35,14 @@ public interface ParameterService {
 
     Menu findOneMenu(String menuId) throws Exception;
 
-    List<Form> searchForm(String query) throws Exception;
+    Page<Form> searchForm(String query, Pageable pageable) throws Exception;
 
     void deleteMenu(String menuId) throws Exception;
 
     Menu saveMenu(Menu menu) throws Exception;
 
     boolean existsMenu(String menuId) throws Exception;
+
+
 
 }

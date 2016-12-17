@@ -12,7 +12,7 @@ import com.voksel.electric.pc.repository.RoleMenuRepository;
 import com.voksel.electric.pc.repository.RoleRepository;
 import com.voksel.electric.pc.repository.UserRepository;
 import com.voksel.electric.pc.repository.UserRoleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,11 +24,11 @@ import java.util.List;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService{
-	@Autowired
+	@Inject
     UserRepository userRepository;
-    @Autowired
+    @Inject
     RoleMenuRepository roleMenuRepository;
-    @Autowired
+    @Inject
     private  RoleRepository userRoleRepository;
     private GlobalVariable globel = GlobalVariable.getInstance();
 

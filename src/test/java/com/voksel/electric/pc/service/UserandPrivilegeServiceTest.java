@@ -8,7 +8,7 @@ import com.voksel.electric.pc.domain.entity.UserRole;
 import com.voksel.electric.pc.security.AuthenticationService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -26,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 @SpringApplicationConfiguration(classes = {ServiceConfiguration.class})
 public class UserandPrivilegeServiceTest {
 
-    @Autowired
+    @Inject
     UserAndPrivilegeService userAndPrivilegeService;
 
 

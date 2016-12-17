@@ -3,7 +3,7 @@ package com.voksel.electric.pc.ui.transaction;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.context.annotation.Scope;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.WrongValueException;
@@ -31,8 +31,8 @@ public class ProductionControl extends SelectorComposer<Component>{
 
 	
 	
-	/*@Autowired MasterServices masterService;
-	@Autowired AuthenticationService authService;*/
+	/*@Inject MasterServices masterService;
+	@Inject AuthenticationService authService;*/
 	
 	Boolean onLoad = false;
 	

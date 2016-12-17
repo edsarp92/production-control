@@ -6,7 +6,7 @@ import com.voksel.electric.pc.domain.entity.Form;
 import com.voksel.electric.pc.service.ParameterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -47,7 +47,7 @@ public class WndRegistrationForm extends SelectorComposer<Component> {
 	@Wire
 	Button btnReset;
 
-	@Autowired
+	@Inject
 	ParameterService parameterService;
 	Boolean onLoad = false;
 
@@ -57,7 +57,7 @@ public class WndRegistrationForm extends SelectorComposer<Component> {
 		initWndRegistrationForm();
 	}
 
-	@Listen("onOk = #txtFormId")
+	@Listen("onOK = #txtFormId")
 	public void onSearch(Event event){
 		try{
 			Form form= parameterService.findOneForm((String)ComponentUtil.getValue(txtFormId));

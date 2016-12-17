@@ -3,30 +3,22 @@ package com.voksel.electric.pc.ui.security;
 import com.voksel.electric.pc.common.ComponentUtil;
 import com.voksel.electric.pc.common.MessageBox;
 import com.voksel.electric.pc.component.DialogUtil;
-import com.voksel.electric.pc.domain.Privilege;
-import com.voksel.electric.pc.domain.entity.*;
+import com.voksel.electric.pc.domain.entity.Form;
 import com.voksel.electric.pc.domain.entity.Menu;
 import com.voksel.electric.pc.service.ParameterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.context.annotation.Scope;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.*;
-
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -53,7 +45,7 @@ public class WndMaintenanceMenu extends SelectorComposer<Component>    {
     @Wire Button btnDelete;
     @Wire Button btnReset;
 
-    @Autowired
+    @Inject
     ParameterService parameterService;
     Boolean onLoad = false;
 
@@ -63,7 +55,7 @@ public class WndMaintenanceMenu extends SelectorComposer<Component>    {
         initWndRegistrationForm();
     }
 
-    @Listen("onOk = #txtMenuId")
+    @Listen("onOK = #txtMenuId")
     public void onSearch(Event event){
         try{
             Menu menu=parameterService.findOneMenu((String)ComponentUtil.getValue(txtMenuId));
@@ -76,7 +68,7 @@ public class WndMaintenanceMenu extends SelectorComposer<Component>    {
         }
     }
 
-    @Listen("onOk = #txtFormId")
+    @Listen("onOK = #txtFormId")
     public void onSearchForm(Event event){
         try{
             doSearchForm();
@@ -89,14 +81,14 @@ public class WndMaintenanceMenu extends SelectorComposer<Component>    {
     @Listen("onClick = #btnSearch")
     public void onButtonSearchForm(Event event){
         try{
-            doSearchForm();
+            doOpenDialogForm();
         }catch (Exception e)
         {
             log.error("Button search form on click ", e);
         }
     }
 
-    @Listen("onOk = #txtParentId")
+    @Listen("onOK = #txtParentId")
     public void onSearchParent(Event event){
         try{
             doSearchParent();

@@ -10,7 +10,7 @@ import com.voksel.electric.pc.repository.UserRoleRepository;
 import com.voksel.electric.pc.service.UserAndPrivilegeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,13 +26,13 @@ public class UserAndPrivilegeServiceImpl implements UserAndPrivilegeService {
 
     private final Logger log = LoggerFactory.getLogger(UserAndPrivilegeService.class);
 
-    @Autowired
+    @Inject
     UserRepository userRepository;
 
-    @Autowired
+    @Inject
     UserRoleRepository userRoleRepository;
 
-    @Autowired
+    @Inject
     RoleRepository roleRepository;
 
     @Override

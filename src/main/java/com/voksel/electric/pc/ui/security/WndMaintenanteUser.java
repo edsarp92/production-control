@@ -10,7 +10,7 @@ import com.voksel.electric.pc.service.ParameterService;
 import com.voksel.electric.pc.service.UserAndPrivilegeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -62,7 +62,7 @@ public class WndMaintenanteUser extends SelectorComposer<Component> {
 
     Listitem item;
 
-    @Autowired
+    @Inject
     UserAndPrivilegeService userAndPrivilegeService;
     Boolean onLoad = false;
 
@@ -71,7 +71,7 @@ public class WndMaintenanteUser extends SelectorComposer<Component> {
         initWndRegistrationForm();
     }
 
-    @Listen("onOk = #txtRoleId")
+    @Listen("onOK = #txtRoleId")
     public void onSearch(Event event){
         try{
             User user=userAndPrivilegeService.findOneUserByUserName((String)ComponentUtil.getValue(txtUserName));

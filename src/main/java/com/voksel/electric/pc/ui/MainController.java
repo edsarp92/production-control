@@ -6,7 +6,7 @@ import com.voksel.electric.pc.component.MenuTreeItem;
 import com.voksel.electric.pc.component.MenuTreeNode;
 import com.voksel.electric.pc.domain.entity.UserRole;
 import com.voksel.electric.pc.security.SecurityUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,7 +30,7 @@ import java.util.*;
 @org.springframework.stereotype.Component
 @Scope("desktop")
 public class MainController extends SelectorComposer<Borderlayout> {
-    @Autowired
+    @Inject
     MenuLoader menuLoader;
     @Wire
     Tree treeMenu;

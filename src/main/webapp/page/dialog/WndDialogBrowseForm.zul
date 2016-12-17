@@ -9,17 +9,20 @@
 			<row>
 				<hbox>
 					<label value="Search" />
-					<textbox id="txtSearch" width="150px"/>
-					<button id="btnSearch" width="75px" label="Search"/>
+					<textbox id="txtBrowseSearch" width="150px"/>
+					<button id="btnBrowseSearch" width="75px" label="Search"/>
 				</hbox>
 			</row>
 			<row>
-				<listbox id="listBrowseForm" hflex="true" height="200px" mold="paging" pageSize="30" >
+				<vbox hflex="true" vflex="true">
+				<listbox id="listBrowseForm" hflex="true" height="200px" mold="paging" pageSize="30">
 					<listhead>
 						<listheader label="Form ID" width="100px" />
 						<listheader label="Nama" />
 					</listhead>
 				</listbox>
+				<paging pageSize="20" id="paging"/>
+				</vbox>
 			</row>
 		</rows>
 	</grid>

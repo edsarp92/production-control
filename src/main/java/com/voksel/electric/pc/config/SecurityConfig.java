@@ -1,7 +1,7 @@
 package com.voksel.electric.pc.config;
 
 import com.voksel.electric.pc.security.AuthenticationService;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -17,10 +17,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @ComponentScan(basePackageClasses = AuthenticationService.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
+    @Inject
     private AuthenticationService authenticationService;
 
-    @Autowired
+    @Inject
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(authenticationService).passwordEncoder(passwordencoder());
 
@@ -52,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().logoutSuccessUrl("/login.zul?logout")
                 .and()
                 .exceptionHandling().accessDeniedPage("/login.zul?error").and()
+               // .addFilterBefore()
                 .csrf().disable();
     }
 

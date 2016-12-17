@@ -3,13 +3,13 @@ package com.voksel.electric.pc.config;
 import com.voksel.electric.pc.component.AbstractMenuLoader;
 import com.voksel.electric.pc.component.MenuTreeItem;
 import com.voksel.electric.pc.security.AuthenticationService;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 
 import java.util.Collection;
 
 public class ApplicationMenuLoader extends AbstractMenuLoader{
 
-    @Autowired
+    @Inject
     AuthenticationService authService;
 	
     @Override
@@ -19,7 +19,7 @@ public class ApplicationMenuLoader extends AbstractMenuLoader{
     }
 
     @Override
-    public Collection<MenuTreeItem> loadByRole(String s)
+        public Collection<MenuTreeItem> loadByRole(String s)
     {
         return authService.loadMenuItemsByRole(s);
     }

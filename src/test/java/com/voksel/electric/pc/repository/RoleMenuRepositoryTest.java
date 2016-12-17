@@ -5,7 +5,7 @@ import com.voksel.electric.pc.domain.entity.Role;
 import com.voksel.electric.pc.domain.entity.RoleMenu;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -19,10 +19,10 @@ import static org.junit.Assert.*;
 @SpringApplicationConfiguration(classes = {RepositoryConfiguration.class})
 public class RoleMenuRepositoryTest {
 
-    @Autowired
+    @Inject
     RoleMenuRepository roleMenuRepository;
 
-    @Autowired
+    @Inject
     RoleRepository roleRepository;
 
 

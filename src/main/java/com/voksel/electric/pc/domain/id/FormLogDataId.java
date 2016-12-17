@@ -12,7 +12,9 @@ public class FormLogDataId implements Serializable {
     private static final long serialVersionUID = -8566213944242581330L;
 
     private String formId;
+
     private String field;
+
     private Date timeStamp;
 
     public String getFormId() {

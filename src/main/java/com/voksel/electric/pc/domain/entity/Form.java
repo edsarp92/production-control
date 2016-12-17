@@ -2,7 +2,6 @@ package com.voksel.electric.pc.domain.entity;
 
 
 import javax.persistence.*;
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -12,7 +11,7 @@ import java.util.Set;
 @Table(name = "sys_form")
 public class Form implements Serializable {
 
-    private static final long serialVersionUID = -3074899015464984786L;
+    private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "form_id")
@@ -43,6 +42,7 @@ public class Form implements Serializable {
         this.url = url;
     }
 
+
     public String getFormName() {
         return formName;
     }
@@ -57,6 +57,21 @@ public class Form implements Serializable {
 
     public void setMenus(Set<Menu> menus) {
         this.menus = menus;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Form form = (Form) o;
+        if(form.formId == null || formId == null) {
+            return false;
+        }
+        return Objects.equals(formId, form.formId);
     }
 
     @Override

@@ -46,8 +46,16 @@ role_id character varying(2) NOT NULL,
 CONSTRAINT r_user_role_pk primary key(user_id,role_id)
 );
 
+truncate table sys_user;
+truncate table sys_menu;
+truncate table r_user_role;
+truncate table r_role_menu;
+truncate table sys_role;
+truncate table sys_form;
+
 INSERT INTO sys_user(user_id,user_name,email,password,enabled)VALUES (0,'admin','dev@dev.com','$2a$04$j3JpPUp6CTAe.kMWmdRNC.Wie58xDNPfcYz0DBJxWkucJ6ekJuiJm',1);
-INSERT INTO r_user_role(user_id,role_id)VALUES(0,'XX')
+
+INSERT INTO r_user_role(user_id,role_id)VALUES(0,'XX');
 
 INSERT INTO sys_menu (menu_id,name,form_id,parent_id,sequence,param) VALUES ('000000','ENTRY',null,null,0,null);
 INSERT INTO sys_menu (menu_id,name,form_id,parent_id,sequence,param) VALUES ('000100','PARAMETER SISTEM',null,'000000',1,null);
@@ -62,9 +70,12 @@ INSERT INTO sys_menu (menu_id,name,form_id,parent_id,sequence,param) VALUES ('01
 INSERT INTO sys_menu (menu_id,name,form_id,parent_id,sequence,param) VALUES ('010102','Reset Password','0007','010100',2,null);
 INSERT INTO sys_menu (menu_id,name,form_id,parent_id,sequence,param) VALUES ('010000','UTILITY',null,null,1,null);
 
+
+
 INSERT INTO sys_role (role_id,name) VALUES ('01','Administrator');
 INSERT INTO sys_role (role_id,name) VALUES ('02','User Aplikasi');
 INSERT INTO sys_role (role_id,name) VALUES ('XX','SUPER USER');
+
 
 INSERT INTO r_role_menu (role_id,menu_id) VALUES ('XX','000000');
 INSERT INTO r_role_menu (role_id,menu_id) VALUES ('XX','000100');
@@ -88,4 +99,5 @@ INSERT INTO sys_form (form_id,zul_file,name) VALUES ('0004','/page/master/WndPem
 INSERT INTO sys_form (form_id,zul_file,name) VALUES ('0006','/page/master/WndPemeliharaanUser.zul','Pemeliharaan User');
 INSERT INTO sys_form (form_id,zul_file,name) VALUES ('0007','/page/master/WndResetPassword.zul','Reset Password');
 INSERT INTO sys_form (form_id,zul_file,name) VALUES ('0008','/page/master/WndChangePassword.zul','Change Password');
+
 

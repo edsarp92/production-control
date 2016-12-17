@@ -6,7 +6,7 @@ import com.voksel.electric.pc.domain.entity.Role;
 import com.voksel.electric.pc.service.ParameterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -45,7 +45,7 @@ public class WndRegistrationRole extends SelectorComposer<Component> {
 	@Wire
 	Button btnReset;
 
-	@Autowired
+	@Inject
 	ParameterService parameterService;
 	Boolean onLoad = false;
 
@@ -55,7 +55,7 @@ public class WndRegistrationRole extends SelectorComposer<Component> {
 		initWndRegistrationForm();
 	}
 
-	@Listen("onOk = #txtRoleId")
+	@Listen("onOK = #txtRoleId")
 	public void onSearch(Event event){
 		try{
 			Role role= parameterService.findOneRole((String)ComponentUtil.getValue(txtRoleId));

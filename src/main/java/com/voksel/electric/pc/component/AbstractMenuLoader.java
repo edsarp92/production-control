@@ -3,7 +3,7 @@ package com.voksel.electric.pc.component;
 import com.voksel.electric.pc.security.AuthenticationService;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Components;
 import org.zkoss.zk.ui.Executions;
@@ -21,7 +21,7 @@ public abstract class AbstractMenuLoader implements InitializingBean, MenuLoader
     private Component content;
     protected Collection<MenuTreeItem> menuTreeItems;
 
-    @Autowired
+    @Inject
     private AuthenticationService authService;
     public AbstractMenuLoader() {
     }
